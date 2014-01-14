@@ -123,11 +123,8 @@
 			var minutes = (Math.floor(seconds/60) < 10) ? "0" + Math.floor(seconds/60) : Math.floor(seconds/60);
 			var seconds = (seconds % 60 > 9) ? seconds % 60 : "0" + seconds % 60;
 			seconds = Math.round(seconds);
-			//if (hours > 0) {
-				var timestring = hours+":"+minutes+":"+seconds;
-			//} else {
-			//	var timestring = minutes+":"+seconds;
-			//}
+			seconds = (seconds > 9) ? seconds : "0" + seconds;
+			var timestring = hours+":"+minutes+":"+seconds;
 			return timestring;
 		};
 	});;
