@@ -1,0 +1,17 @@
+{
+	"name":			"index",
+	"files":		{
+		"index.html": {
+			"title":	"Stopwatch - Demo",
+			"filename":	"index.html"
+		}
+	},
+	"template":		"main.html",
+	"dependencies":	[
+		"jquery",
+		"bootstrap",
+		"examples",
+		"AngularJS",
+		"stopwatch"
+	]
+}

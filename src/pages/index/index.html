@@ -1,0 +1,40 @@
+<div class="panel panel-default" ng-app="stopwatchApp" ng-controller="demoCtrl">
+	<div class="panel-body">
+		<div class="well">
+			{{time}}
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="btn btn-danger" ng-click="reset()">Reset</div>
+		<div class="btn btn-primary" ng-click="start()">Start</div>
+		<div class="btn btn-primary" ng-click="pause()">Pause</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	
+	// Define the angular app
+	angular.module('stopwatchApp', []).controller('demoCtrl', function($scope) {
+		var scope = this;
+		$scope.debug	= "00:00:00";
+		
+		stopwatch = new window.stopwatch();
+		
+		setInterval(function() {
+			$scope.time 	= stopwatch.current("mm:ss");
+			$scope.$apply();
+		}, 100);
+		
+		$scope.reset = function() {
+			stopwatch.reset();
+		}
+		$scope.start = function() {
+			stopwatch.start();
+		}
+		$scope.pause = function() {
+			stopwatch.pause();
+		}
+		
+	});
+</script>
