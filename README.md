@@ -19,9 +19,11 @@
 `var elapsed = timer.current('mm:ss');`
 
 #### Add a cue (at 20 seconds elapsed) ####
-```timer.addCue(20, function() {
+```
+timer.addCue(20, function() {
 	console.log("The timer is running for 20 seconds.");
-});```
+});
+```
 
 ## License ##
 Copyright (c) 2014 Fleetwit, Inc
