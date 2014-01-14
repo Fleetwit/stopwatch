@@ -50,11 +50,22 @@
 		
 			<!-- Begin page content -->
 			<div class="container" style="padding-top: 80px;">
-				<div class="panel panel-default" ng-app="stopwatchApp" ng-controller="demoCtrl">
+				<div class="panel panel-default" ng-app="stopwatchApp" ng-controller="demoCtrl" style="max-width:400px;margin:0 auto;">
 	<div class="panel-body">
 		<div class="well">
 			{{time}}
 		</div>
+		
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Add a new cue point (in seconds)" ng-model="cueTime">
+			<div class="input-group-btn">
+				<div class="btn btn-primary" ng-click="addCue()">Add Cue Point</div>
+			</div>
+		</div>
+		<div class="list-group">
+			<a href="#" class="list-group-item" ng-repeat="cue in cues|orderBy:'time':false">{{cue.time|format_time}}  <span class="badge" ng-show="cue.passed">Done!</span></a>
+		</div>
+
 	</div>
 	<div class="panel-footer">
 		<div class="btn btn-danger" ng-click="reset()">Reset</div>
@@ -68,8 +79,9 @@
 	
 	// Define the angular app
 	angular.module('stopwatchApp', []).controller('demoCtrl', function($scope) {
-		var scope = this;
+		var scope 		= this;
 		$scope.debug	= "00:00:00";
+		$scope.cues		= [];
 		
 		stopwatch = new window.stopwatch();
 		
@@ -87,8 +99,38 @@
 		$scope.pause = function() {
 			stopwatch.pause();
 		}
+		$scope.addCue = function() {
+			(function(time) {
+				var item = {
+					time:	time*1,	// clone
+					passed:	false
+				};
+				stopwatch.addCue(item.time, function() {
+					item.passed = true;
+					console.log("Passed: ",item);
+				});
+				$scope.cues.push(item);
+				$scope.cueTime = "";
+			})($scope.cueTime);
+			
+		}
 		
-	});
+	}).filter('format_time', function() {
+		return function(time) {
+			var seconds = time;
+			var hours = Math.floor(seconds / 3600);
+			seconds = seconds - hours * 3600;
+			var minutes = (Math.floor(seconds/60) < 10) ? "0" + Math.floor(seconds/60) : Math.floor(seconds/60);
+			var seconds = (seconds % 60 > 9) ? seconds % 60 : "0" + seconds % 60;
+			seconds = Math.round(seconds);
+			//if (hours > 0) {
+				var timestring = hours+":"+minutes+":"+seconds;
+			//} else {
+			//	var timestring = minutes+":"+seconds;
+			//}
+			return timestring;
+		};
+	});;
 </script>
 			</div>
 		</div>
