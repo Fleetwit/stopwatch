@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Stopwatch by Fleetwit">
+		<meta name="author" content="Julien Loutre">
+		<link rel="shortcut icon" href="favicon.png">
+		
+		<title>Stopwatch - Demo</title>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+<script src="public/jquery/jquery.js"></script>
+<script src="public/bootstrap/./dist/js/bootstrap.js"></script>
+<script src="public/jquery/jquery.js"></script>
+<script src="public/underscore/underscore-min.js"></script>
+<script src="public/json2/json2.js"></script>
+<script src="public/stopwatch/stopwatch.js"></script>
+		<link href="public/bootstrap/./dist/css/bootstrap.css" rel="stylesheet">
+<link href="public/examples/custom.css" rel="stylesheet">
+		
+	</head>
+	<body>
+		
+		<a href="https://github.com/Fleetwit/stopwatch"><img style="position: absolute; position: fixed; top: 0; right: 0; border: 0; z-index:5000;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+		
+		<div id="wrap">
+		
+			<!-- Fixed navbar -->
+			<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">Stopwatch</a>
+					</div>
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="index.html">Demo</a></li>
+							<li><a href="mailto:julien@twenty-six-medias.com">Contact</a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		
+			<!-- Begin page content -->
+			<div class="container" style="padding-top: 80px;">
+				<div class="panel panel-default" ng-app="stopwatchApp" ng-controller="demoCtrl">
+	<div class="panel-body">
+		<div class="well">
+			{{time}}
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="btn btn-danger" ng-click="reset()">Reset</div>
+		<div class="btn btn-primary" ng-click="start()">Start</div>
+		<div class="btn btn-primary" ng-click="pause()">Pause</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	
+	// Define the angular app
+	angular.module('stopwatchApp', []).controller('demoCtrl', function($scope) {
+		var scope = this;
+		$scope.debug	= "00:00:00";
+		
+		stopwatch = new window.stopwatch();
+		
+		setInterval(function() {
+			$scope.time 	= stopwatch.current("mm:ss");
+			$scope.$apply();
+		}, 100);
+		
+		$scope.reset = function() {
+			stopwatch.reset();
+		}
+		$scope.start = function() {
+			stopwatch.start();
+		}
+		$scope.pause = function() {
+			stopwatch.pause();
+		}
+		
+	});
+</script>
+			</div>
+		</div>
+		
+		<div id="footer">
+			<div class="container">
+				<p class="text-muted">&copy; Fleetwit, Inc 2014</p>
+			</div>
+		</div>
+		
+	</body>
+</html>
